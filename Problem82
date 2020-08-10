@@ -1,45 +1,47 @@
-import math
-
 def main():
 
 	lis = []
-#	with open('p082_matrix.txt', 'r') as file:
-	with open('p082_test.txt', 'r') as file:
+	with open('p082_matrix.txt', 'r') as file:
+#	with open('p082_test.txt', 'r') as file:
 		n = 1
 		for item in file.readlines():
-			print(n)
 			n += 1
 			lis.append(item.strip("\n").split(","))
-	
 	for i in range(len(lis)):
 		for j in range(len(lis[0])):
 			lis[i][j] = int(lis[i][j])
-	
-	for i in range(-2, -len(lis)-1, -1):
-		tempLis = []
-		for j in range(len(lis)):
-			tempLis.append(minimise(lis, i, j))
-			print("tempLis =", tempLis)
-		for n in range(len(tempLis)):
-			lis[n][i] = tempLis[n]
-			
 	print(lis)
 	
+	for j in range(-2, -len(lis)-1, -1):
+		options = []
+		for i in range(len(lis)):
+			options.append(minimise(lis, i, j))
+			
+		for num in range(len(options)):
+			lis[num][j] = options[num]
+		print(lis)
 	
-def minimise(lis, i, j):
-	options = [lis[j][i] + lis[j][i+1]]
+	final = []
+	for line in lis:
+		final.append(line[0])
+	print(min(final))
 	
-	for k in range(j-1, -1, -1):
-		print("k = ", k)
-		lis[k][i] += lis[k+1][i]
-		options.append(lis[k][i]+lis[k][i+1])
-
-	for k in range(j+1, len(lis)):
-		print("k = ", k)
-		lis[k][i] += lis[k-1][i]
-		options.append(lis[k][i]+lis[k][i+1])
-	print(i, j, options)
+def minimise(lis, i, j):			# analyses all len(lis) options and returns the minimum value
+						# can be optimised to skip the obviously wrong options...
+	options = []
+	
+	ref = 0
+	for up in range(i, -1, -1):		# starting at i and counting upwards to i = 0
+		ref += lis[up][j]
+		options.append(ref+lis[up][j+1])
+		
+	ref = 0
+	for down in range(i, len(lis)):		# starting at i and counting downwards, does include a repitition
+		ref += lis[down][j]
+		options.append(ref + lis[down][j+1])
+		
+	print(options)				# just to verify
 	return min(options)
-
+	
 if __name__ == '__main__':
 	main()
