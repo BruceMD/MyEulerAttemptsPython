@@ -34,12 +34,16 @@ def minimise(lis, i, j):			# analyses all len(lis) options and returns the minim
 	for up in range(i, -1, -1):		# starting at i and counting upwards to i = 0
 		ref += lis[up][j]
 		options.append(ref+lis[up][j+1])
+		if ref > lis[i][j+1]:
+			break
 		
 	ref = 0
 	for down in range(i, len(lis)):		# starting at i and counting downwards, does include a repitition
 		ref += lis[down][j]
 		options.append(ref + lis[down][j+1])
-		
+		if ref > lis[i][j+1]:
+			break
+			
 	print(options)				# just to verify
 	return min(options)
 	
