@@ -13,8 +13,12 @@ def main():
 	letters = string.ascii_lowercase
 	print(letters)
 	
-	print(max(keyList))
-		
+	for l1 in letters:
+		for l2 in letters:
+			for l3 in letters:
+				solve = [ord(l1), ord(l2), ord(l3)]*(len(keyList)//3)
+				print(solve)
+				print()
 	
 if __name__ == "__main__":
 	main()
