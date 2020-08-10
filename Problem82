@@ -19,7 +19,7 @@ def main():
 			
 		for num in range(len(options)):
 			lis[num][j] = options[num]
-		print(lis)
+#		print(lis)
 	
 	final = []
 	for line in lis:
@@ -44,7 +44,6 @@ def minimise(lis, i, j):			# analyses all len(lis) options and returns the minim
 		if ref > lis[i][j+1]:
 			break
 			
-	print(options)				# just to verify
 	return min(options)
 	
 if __name__ == '__main__':
