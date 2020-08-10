@@ -1,0 +1,20 @@
+import string
+
+def main():
+	
+	with open('p059_cipher.txt', 'r') as file:
+		key = file.read()
+		
+	keyList = key.split(",")
+	for num in range(len(keyList)):
+		keyList[num] = int(keyList[num])
+#	print(keyList)
+	
+	letters = string.ascii_lowercase
+	print(letters)
+	
+	print(max(keyList))
+		
+	
+if __name__ == "__main__":
+	main()
