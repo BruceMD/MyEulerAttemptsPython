@@ -1,0 +1,18 @@
+def main():
+	
+	lis = []
+	with open('p067_triangle.txt', 'r') as file:
+		for line in file.readlines():
+			l = line.strip("\n").split(" ")
+			lis.append(l)
+	print(lis)
+	for i in range(len(lis)):
+		for j in range(len(lis[i])):
+			lis[i][j] = int(lis[i][j])
+	print(lis)
+	
+	
+	
+	
+if __name__ == "__main__":
+	main()
