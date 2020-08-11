@@ -5,14 +5,18 @@ def main():
 		for line in file.readlines():
 			l = line.strip("\n").split(" ")
 			lis.append(l)
-	print(lis)
+#	print(lis)
 	for i in range(len(lis)):
 		for j in range(len(lis[i])):
 			lis[i][j] = int(lis[i][j])
-	print(lis)
+#	print(lis)
 	
-	
-	
+	for m in range(-2, -len(lis)-1, -1):
+#		print(m)
+		for n in range(len(lis[m])):
+			lis[m][n] += max(lis[m+1][n], lis[m+1][n+1])
+
+	print(lis[0][0])
 	
 if __name__ == "__main__":
 	main()
