@@ -8,17 +8,38 @@ def main():
 	keyList = key.split(",")
 	for num in range(len(keyList)):
 		keyList[num] = int(keyList[num])
-#	print(keyList)
 	
+	sampleKey = keyList[0:99]
+
 	letters = string.ascii_lowercase
 	print(letters)
 	
-	for l1 in letters:
-		for l2 in letters:
-			for l3 in letters:
-				solve = [ord(l1), ord(l2), ord(l3)]*(len(keyList)//3)
-				print(solve)
-				print()
+	for a in letters:
+		for b in letters:
+			for c in letters:
+				newKey = [ord(a),ord(b),ord(c)]*33
+				check = ""
+				for i in range(99):
+					check += chr(sampleKey[i]^newKey[i])
+				if " the " in check:
+					print(check)
+					print(a+ b+ c)
+					
+					
+					return
+
+def countESP(word):				# turned out to be pretty useless, I can simply just check for " the " (note that the spaces before and after the are very important)
 	
+	e, sp = 0, 0
+	
+	for c in word:
+		if ord(c) == 101:
+			e += 1
+		elif ord(c) == 32:
+			sp += 1
+			
+	return e >= 8 and sp >= 8
+
+
 if __name__ == "__main__":
 	main()
