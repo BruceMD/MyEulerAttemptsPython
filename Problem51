@@ -2,75 +2,31 @@ import time
 
 def main():
 	
-	for i in range(1, 10):
+	for i in range(1, 7):
 		logRange = genPrimeList(i-1, i)
 		print(i)
 		for number in logRange:
 			if convert(number):
 				print("Answer is: ", number)
-				return
-		
-		
+				
 	
 def convert(x):
 	num = str(x)
 	num = list(num)
 	
-	zeroCount = num.count("0")
+	digitCount = num.count("1")
 	
-	if zeroCount == 1:
+	if digitCount == 3 and num[-1] != "1":			# based on online research
 		trial = []
 		for i in range(10):
 			new = ""
 			for n in num:
-				if n == "0":
+				if n == "1":
 					new += str(i)
 				else:
 					new += n
 			trial.append(int(new))
-		print(trial)
-		if prime8Check(trial):
-			print(trial)
-			return True
-	
-	elif zeroCount == 2:
-		for opt in [[1, 1], [1, 0], [0, 1]]:
-			trial = []
-			for i in range(10):
-				new = ""
-				bin = 0
-				for n in num:
-					if n == "0" and opt[bin] == 1:
-						new += str(i)
-						bin += 1
-					elif n == "0" and opt[bin] == 0:
-						new += n
-						bin += 1
-					else:
-						new += n
-				trial.append(int(new))
-			print(trial)
-		if prime8Check(trial):
-			print(trial)
-			return True
-		
-	elif zeroCount == 3:				# just assumed we wouldn't need to check more than 3 zeroes
-		for opt in [[1, 1, 1], [1, 1, 0], [1, 0, 1], [1, 0, 0], [0, 1, 1], [0, 1, 0], [0, 0, 1]]:
-			trial = []
-			for i in range(10):
-				new = ""
-				bin = 0
-				for n in num:
-					if n == "0" and opt[bin] == 1:
-						new += str(i)
-						bin += 1
-					elif n == "0" and opt[bin] == 0:
-						new += n
-						bin += 1
-					else:
-						new += n
-				trial.append(int(new))
-			print(trial)
+			
 		if prime8Check(trial):
 			print(trial)
 			return True
@@ -95,16 +51,16 @@ def prime8Check(trial):
 def genPrimeList(a, b):
 	lis = []
 	for i in range(10**a+1, 10**b, 2):
-		if zeroCheck(i):
+		if digitCheck(i):
 			if isPrime(i):
 				lis.append(i)
 	return lis
 	
 	
-def zeroCheck(x):			# making an assumption that the number will contain a zero in it, if that fails then I will choose 1
+def digitCheck(x):			# making an assumption that the number will contain a zero in it, if that fails then I will choose 1
 							# from here, I will replace the zero/zeroes with the other digits and check for other primes
-	num = str(x)
-	return "0" in num
+	num = str(x-1)
+	return "1" in num
 	
 def isPrime(x):
 	count = 0
