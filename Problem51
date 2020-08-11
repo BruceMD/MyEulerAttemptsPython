@@ -1,0 +1,68 @@
+import time
+
+def main():
+	
+	for i in range(3,7):
+		logRange = genPrimeList(i-1, i)
+		print(i)
+		for number in logRange:
+			if prime8Check(convert(number)):
+				print("Answer is: ", number)
+				return
+		
+		
+	
+def convert(x):
+	num = str(x)
+	trial = []
+	for i in range(10):
+		new = ""
+		for n in num:
+			if n == "0":
+				new += str(i)
+			else:
+				new += n
+		trial.append(int(new))
+	
+	return trial
+	
+	
+def prime8Check(trial):
+	count = 0
+	for t in trial:
+		if isPrime(t):
+			count += 1
+	
+	return (count == 8)
+	
+	
+def genPrimeList(a, b):
+	lis = []
+	for i in range(10**a+1, 10**b, 2):
+		if zeroCheck(i):
+			if isPrime(i):
+				lis.append(i)
+	return lis
+	
+	
+def zeroCheck(x):			# making an assumption that the number will contain a zero in it, if that fails then I will choose 1
+							# from here, I will replace the zero/zeroes with the other digits and check for other primes
+	num = str(x)
+	return "0" in num
+	
+def isPrime(x):
+	count = 0
+	for i in range(3, round(x**0.5)+1, 2):
+		if x % i == 0:
+			count += 1
+			return False
+			break
+	if count == 0:
+		return True
+	
+	
+if __name__ == '__main__':
+	start = time.time()
+	main()
+	end = time.time()
+	print(end-start)
