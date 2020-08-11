@@ -9,7 +9,7 @@ def main():
 	for num in range(len(keyList)):
 		keyList[num] = int(keyList[num])
 	
-	sampleKey = keyList[0:99]
+	sampleKey = keyList[0:99]				# just searching the first 99 characters, looking for " the "
 
 	letters = string.ascii_lowercase
 	print(letters)
@@ -21,24 +21,16 @@ def main():
 				check = ""
 				for i in range(99):
 					check += chr(sampleKey[i]^newKey[i])
-				if " the " in check:
-					print(check)
-					print(a+ b+ c)
-					
-					
+				if " the " in check:			#one of the easiest words to search for in English
+					sumTotal = 0
+					fullKey = ""
+					newKey = [ord(a),ord(b),ord(c)]
+					for n, num in enumerate(keyList):
+						sumTotal += num^newKey[n % 3]
+						fullKey += chr(num^newKey[n % 3])
+					print(sumTotal)
+					print(fullKey)
 					return
-
-def countESP(word):				# turned out to be pretty useless, I can simply just check for " the " (note that the spaces before and after the are very important)
-	
-	e, sp = 0, 0
-	
-	for c in word:
-		if ord(c) == 101:
-			e += 1
-		elif ord(c) == 32:
-			sp += 1
-			
-	return e >= 8 and sp >= 8
 
 
 if __name__ == "__main__":
