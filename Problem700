@@ -1,0 +1,26 @@
+from time import time
+
+def main():
+	
+	firstEC = 1504170715041707
+	modN = 4503599627370517
+	
+	eulerCoins = [1504170715041707]
+	
+	num = 1504170715041707
+	while(True):
+		num += firstEC
+		num = num % modN
+		if num < eulerCoins[-1]:
+			eulerCoins.append(num)
+		if num == firstEC:
+			break
+
+	print(sum(eulerCoins))
+
+
+if __name__ == '__main__':
+	s = time()
+	main()
+	e = time()
+	print(e-s)
