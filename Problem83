@@ -1,10 +1,10 @@
- from time import time
+from time import time
 
 def main():
 
 	lis = []
 #	with open('p083_matrix.txt', 'r') as file:
-	with open('p082_test.txt', 'r') as file:
+	with open('p083_test.txt', 'r') as file:
 		n = 1
 		for item in file.readlines():
 			n += 1
@@ -14,18 +14,57 @@ def main():
 			lis[i][j] = int(lis[i][j])
 	print(lis)
 	
-	grid = [[0 for _ in range(5)] for _ in range(5)]
+	grid = [[10**6 for _ in range(len(lis))] for _ in range(len(lis))]
 	
-	current = (4, 4)
+	current = [len(lis)-1, len(lis)-1]
 	
-	completed = [(4, 4)]
-	grid[4][4] = lis[4][4]
-	print(grid)
+	completed = []
+	grid[len(lis)-1][len(lis)-1] = lis[len(lis)-1][len(lis)-1]
+#	print(grid)
 	
-	while (current != (1, 1)):
+	while (current != [0, 0]):
+		for jump in [[0, -1], [-1, 0], [1, 0], [0, 1]]:
+			adjBlock = move(jump, current)
+			if valid(adjBlock, completed, len(grid)):
+				trialMin = [grid[adjBlock[0]][adjBlock[1]], grid[current[0]][current[1]]+lis[adjBlock[0]][adjBlock[1]]]
+				newMin = min(trialMin)
+				grid[adjBlock[0]][adjBlock[1]] = newMin
+		completed.append(current)
+		current = findMin(grid, completed)
+	printGrid(grid)
+	print(grid[0][0])
 		
+		
+def printGrid(grid):
+	for line in grid:
+		print(line)
+		
+		
+def findMin(grid, completed):
+	tempNum = 10**8
+	tempMin = []
+	for i in range(len(grid)):
+		for j in range(len(grid[i])):
+			if [i, j] not in completed:
+				if grid[i][j] < tempNum:
+					tempMin = [i, j]
+					tempNum = grid[i][j]
+	return tempMin
 	
 	
+def valid(ori, completed, length):
+	if ori[0] >= length or ori[1] >= length or ori[0] < 0 or ori[1] < 0:
+		return False
+	if ori in completed:
+		return False
+	
+	return True
+	
+	
+def move(dir, ori):			# dir - direction, ori - origin
+	new = [ori[0]+dir[0], ori[1]+dir[1]]
+	
+	return new
 	
 	
 if __name__ == '__main__':
