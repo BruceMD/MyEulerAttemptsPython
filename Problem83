@@ -1,4 +1,6 @@
 from time import time
+import numpy as np
+import cv2
 
 def main():
 
@@ -21,6 +23,7 @@ def main():
 	completed = []
 	grid[len(lis)-1][len(lis)-1] = lis[len(lis)-1][len(lis)-1]
 #	print(grid)
+	ref = 0
 	
 	while (current != [0, 0]):
 		for jump in [[0, -1], [-1, 0], [1, 0], [0, 1]]:
@@ -31,10 +34,38 @@ def main():
 				grid[adjBlock[0]][adjBlock[1]] = newMin
 		completed.append(current)
 		current = findMin(grid, completed)
+		imageGen(grid, completed, ref, current)
+		ref += 1
 	printGrid(grid)
 	print(grid[0][0])
 		
 		
+def printDisp(grid, completed):
+	matrixD = [[" " for _ in range(len(grid[0]))] for _ in range(len(grid))]
+	
+	for l in completed:
+		matrixD[l[0]][l[1]] = "#"
+	for line in matrixD:
+		print(line)
+		
+	print()
+	print()
+	
+	
+def imageGen(grid, completed, ref, current):
+	image = np.zeros((len(grid)*6+6, len(grid[0])*6+6, 3), np.uint8)
+	for l in completed:
+		if l == current:
+			for g in range(6):
+				for h in range(6):
+					image[l[0]*6+g][l[1]*6+h] = [0,0,255]
+		else:
+			for g in range(6):
+				for h in range(6):
+					image[l[0]*6+g][l[1]*6+h] = [0,255,0]
+	cv2.imwrite("Image_{}.png".format(ref),image)
+	
+	
 def printGrid(grid):
 	for line in grid:
 		print(line)
