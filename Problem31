@@ -1,0 +1,18 @@
+def main():
+
+	count = 2			# having 1 two pound coin or having two 1 pound coins
+
+	for a in range(201):
+		for b in range(101):
+			for c in range(41):
+				for d in range(21):
+					for e in range(11):
+						for f in range(5):
+							for g in range(2):
+								if (a + b*2 + c*5 + d*10 + e*20 + f*50 + g*100 == 200):
+									count += 1
+										
+	print(count)
+
+if __name__ == '__main__':
+	main()
