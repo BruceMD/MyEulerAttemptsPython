@@ -5,9 +5,9 @@ counter = 0
 def main():
 	global counter
 	
-	for i in range(2, 9):
+	for i in range(100, 101):
+		s = time()
 		counter = 0
-		print(i)
 		for j in range(i-1, 0, -1):
 			rec(i, [j])
 		print("Counter :", counter)
@@ -18,7 +18,7 @@ def rec(i, lis = []):
 	global counter
 	
 	if sum(lis) == i:
-		print(lis)
+#		print(lis)
 		counter += 1
 		return
 		
@@ -37,4 +37,7 @@ def createList(x, lim):
 	
 	
 if __name__ == '__main__':
+	s = time()
 	main()
+	e = time()
+	print(e-s)
