@@ -1,0 +1,52 @@
+import time
+
+def main():
+
+	lis = []
+
+	with open("keylog.txt") as re:
+		line = re.readline()
+		while line:
+			lis.append(line.strip())
+			line = re.readline()
+										# code is incapable of finding a password that includes duplicates... oh well
+	dic = {}							# each time a number is called, depending on its location it gets penalised
+	dicDiv = {}							# if a number gets called more than others, it will be penalised more so adding a counter to normalise the score
+	dicFin = {}							# will hold the normalised score as a key and the number as a value
+	
+	for item in lis:
+		for i in range(3):
+			if item[i] not in dic:
+				dic[item[i]] = 0		# score of each number
+				dicDiv[item[i]] = 0		# number of times each number shows up to normalise score
+		for j in range(3):
+			if j == 0:
+				dic[item[j]] += 1
+				dicDiv[item[j]] += 1
+			if j == 1:
+				dic[item[j]] += 3
+				dicDiv[item[j]] += 1
+			if j == 2:
+				dic[item[j]] += 9
+				dicDiv[item[j]] += 1
+				
+	for k in dic:								
+		dicFin[round(dic[k]/dicDiv[k], 2)] = k		# normalised score to correspoding number (inverted dictionary)
+	
+	newLis = []
+	
+	for j in dicFin:								# can't sort a dictionary and I want to print out the password to make it look pretty
+		newLis.append(j)
+	newLis.sort()									# append the normalised scores to a list, sort that
+	
+	password = ""
+	for l in newLis:								# call each normalised score as a key to get the value which gives us the password 
+		password += dicFin[l]
+		
+	print("The password is {}.".format(password))
+
+if __name__ == '__main__':
+	start = time.time()
+	main()
+	end = time.time()
+	print(end-start)
