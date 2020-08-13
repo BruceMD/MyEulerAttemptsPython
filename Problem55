@@ -1,0 +1,70 @@
+import time
+
+def main():
+	
+	list = []
+	
+	for i in range(10000):
+		n = 0
+		num = i
+		while (n < 50):
+			num = num + rev(num)
+			if isPalindrome(num) == True:
+				list.append(i)
+				print(num)
+				break
+			else:
+				n += 1
+				
+	print(list)
+	print(len(list))
+	print(10000-len(list))
+	
+def rev(x):
+	word = str(x)
+	newWord = ""
+	for i in range(len(word)):
+		newWord = newWord + word[-1-i]
+		
+	return int(newWord)
+	
+
+def isPalindrome(x):
+	word = str(x)
+	
+	if len(word) == 1:
+		return True
+	elif len(word) == 2:
+		if word[0] == word[1]:
+			return True
+		else:
+			return False
+	elif len(word) == 3:
+		if word[0] == word[2]:
+			return True
+		else:
+			return False
+	elif len(word) % 2 == 0:
+		count = 0
+		for i in range(int(len(word)/2)):
+			if word[i] == word[-1-i]:
+				count += 1
+		if count == len(word)/2:
+			return True
+		else:
+			return False
+	elif len(word) % 2 != 0:
+		count = 0
+		for i in range(int((len(word)-1)/2)):
+			if word[i] == word[-1-i]:
+				count += 1
+		if count == (len(word)-1)/2:
+			return True
+		else:
+			return False
+
+if __name__ == '__main__':
+	start = time.time()
+	main()
+	end = time.time()
+	print(end-start)
