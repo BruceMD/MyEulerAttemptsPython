@@ -1,18 +1,35 @@
+calc = {}
+
 def main():
-
-	count = 2			# having 1 two pound coin or having two 1 pound coins
-
-	for a in range(201):
-		for b in range(101):
-			for c in range(41):
-				for d in range(21):
-					for e in range(11):
-						for f in range(5):
-							for g in range(2):
-								if (a + b*2 + c*5 + d*10 + e*20 + f*50 + g*100 == 200):
-									count += 1
-										
-	print(count)
-
+	global calc
+	
+	ways(200)
+	
+	for keys, items in calc.items():
+		print(keys, items)
+	
+	print(calc[200])
+	
+	
+def ways(goal, m = 0):
+	global calc
+	coins = [200, 100, 50, 20, 10, 5, 2, 1]
+	
+	if goal in calc:
+		print(goal, " is in calc as ", calc[goal])
+		return calc[goal]
+	
+	if goal == 0:
+		return m
+	
+	for coin in coins:
+		if coin <= goal:
+			print(goal, coin, goal-coin)
+			num = ways(goal-coin, m + 1)
+			calc[goal] += num
+	
+	
+	
+	
 if __name__ == '__main__':
 	main()
