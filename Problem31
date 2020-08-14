@@ -1,34 +1,20 @@
-calc = {}
-
 def main():
-	global calc
 	
-	ways(200)
-	
-	for keys, items in calc.items():
-		print(keys, items)
-	
-	print(calc[200])
+	coins = [1, 2, 5, 10, 20, 50, 100, 200]
+	print(ways(200, coins, len(coins)-1))
 	
 	
-def ways(goal, m = 0):
-	global calc
-	coins = [200, 100, 50, 20, 10, 5, 2, 1]
+def ways(goal, coins, coinIndex):
 	
-	if goal in calc:
-		print(goal, " is in calc as ", calc[goal])
-		return calc[goal]
+	if coinIndex <= 0:
+		return 1
 	
-	if goal == 0:
-		return m
+	count = 0
 	
-	for coin in coins:
-		if coin <= goal:
-			print(goal, coin, goal-coin)
-			num = ways(goal-coin, m + 1)
-			calc[goal] += num
-	
-	
+	while goal >= 0:
+		count += ways(goal, coins, coinIndex-1)
+		goal -= coins[coinIndex]
+	return count
 	
 	
 if __name__ == '__main__':
