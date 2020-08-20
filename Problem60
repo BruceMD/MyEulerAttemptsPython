@@ -1,0 +1,65 @@
+def main():
+	
+	lis = [3]
+	dic = {3:[]}
+	
+	for i in range(7, 10000, 2):
+		if isPrime(i):
+			dic[i] = []
+			lis.append(i)
+	
+	for j in range(len(lis)-1):
+		for k in range(j+1, len(lis)):
+			jNum = lis[j]
+			kNum = lis[k]
+			if isPrime(int(str(jNum)+str(kNum))) and isPrime(int(str(kNum)+str(jNum))):
+				dic[jNum] += [kNum]
+				dic[kNum] += [jNum]
+				
+	temp = []
+	
+	for n in dic[3]:
+		if n in dic[7]:
+			temp.append(n)
+	
+	for keys, values in dic.items():
+		print(keys, values)
+		
+	print(temp)
+	
+	for i in range(len(temp)):
+		for j in range(i+1, len(lis)):
+			for k in range(j+1, len(lis)):
+				if check([3, 7, lis[i], lis[j], lis[k]]):
+					print([3, 7, lis[i], lis[j], lis[k]])
+					print(sum([3, 7, lis[i], lis[j], lis[k]]))
+					return
+					
+					
+def check(lis):
+	
+	for m in range(4):
+		for n in range(m+1, 5):
+			if not submit(lis[m], lis[n]):
+				return False
+	return True
+	
+	
+def submit(x, y):		# True for both x,y and y,x are prime
+	
+	return isPrime(int(str(x)+str(y))) and isPrime(int(str(y)+str(x)))
+	
+	
+def isPrime(x):
+	count = 0
+	for i in range(3, round(x**0.5)+1, 2):
+		if x % i == 0:
+			count += 1
+			return False
+			break
+	if count == 0:
+		return True
+	
+	
+if __name__ == "__main__":
+	main()
