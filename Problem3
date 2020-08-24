@@ -1,0 +1,25 @@
+def main():
+	
+	num = 600851475143
+	smallFactors = []
+	
+	for i in range(3, 1000000, 2):
+		if (num % i == 0):
+			smallFactors.append(i)
+			smallFactors.append(int(num/i))
+	
+	smallFactors.sort()
+
+	count = 0
+
+	for j in smallFactors:
+		for i in range(3, round(j/3)+1, 2):
+			if(j % i == 0):
+				print(i)
+				count += 1
+		print("AAAAAAAAAHHHHHHHHHHH :" + str(j) + " the count is >>>" + str(count))	
+
+	print(smallFactors)
+
+if __name__ == '__main__':
+	main()
