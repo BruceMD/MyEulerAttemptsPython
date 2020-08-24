@@ -1,0 +1,19 @@
+def main():
+
+	fibNum = [1, 2]
+	next = fibNum[-1] + fibNum[-2]
+
+	while(next < 4000000):
+		fibNum.append(fibNum[-1] + fibNum[-2])
+		next = fibNum[-1] + fibNum[-2]
+
+	print(fibNum)
+	count = 0
+	for i in range(len(fibNum)):
+		if(fibNum[i] % 2 == 0):
+			count += fibNum[i]
+
+	print(count)
+
+if __name__ == '__main__':
+	main()
