@@ -5,12 +5,14 @@ def main():
 	# not over the moon with the open() function that stores all my data in my code into lis
 	# then processes all the data, would be smarter to handle each line from 'p089_roman.txt'
 	# instead of saving each file but this is only 1000 lines long so not the end of the world
-
-	genDecimals()
 	
 	# Commit 2
 	
-	genRoman()
+	originalLen = genDecimals() 
+	updateLen = genRoman())
+	
+	# Commit 3 to get the lengths differences
+	print(originalLen - updateLen)
 	
 	
 def genRoman():
@@ -24,6 +26,7 @@ def genRoman():
 	lib = {1000: "M", 900: "CM", 500:"D", 400:"CD", 100:"C", 90:"XC", 50:"L", 40:"XL", 10:"X", 9:"IX", 5:"V", 4:"IV", 1:"I"}
 	
 	newFile = open("DecimalToRoman.txt", "w")
+	DTRCount = 0
 	
 	for number in lis:
 		n = 0
@@ -35,9 +38,11 @@ def genRoman():
 				romanNum += lib[libRef[n]]
 			else:
 				n += 1
+		DTRCount += len(romanNum)
 		newFile.write(romanNum + "\n")
 
 	newFile.close()
+	return DTRCount
 
 def genDecimals():
 	lis = []
@@ -46,18 +51,18 @@ def genDecimals():
 			lis.append(item.strip("\n"))
 			
 #	print(lis)
+	p089Count = 0
 	
 	newFile = open("RomanToDecimals.txt", "w")
 	
 	romanN = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
 	
-	count = 0
 	for number in lis:
 		numberValue = 0
 		podium = 0
 		mem = "M"
 		for digit in number:
-			count += 1
+			p089Count += 1
 			if check(mem, digit):
 				numberValue += podium
 				podium, mem = romanN[digit], digit
@@ -66,8 +71,9 @@ def genDecimals():
 		numberValue += podium
 		newFile.write(str(numberValue) + "\n")
 	
-	print(count)
 	newFile.close()
+	
+	return p089Count
 	
 def check(a, b):
 
