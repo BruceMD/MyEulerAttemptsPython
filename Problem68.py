@@ -4,11 +4,11 @@ def main():
 	
 	lis = [i for i in range(1, 11)]
 	
-	validGong = []
+	validGong = []					# put all perms that make 5 gon rings here
 	
 	for lim in range(14, 20):
 		for perm in permutations(lis, 5):
-#			print(perm)
+# I found the permutation of five numbers that work on a Gon ring, then matched the remaining five to where they could go. If there was a conflict then I'd quit this perm and move to the next option
 			check = True
 			invPerm = invLis(perm)
 			for j in range(-1, 4):
@@ -21,32 +21,65 @@ def main():
 			if check:
 				validGong.append(printGonRing(perm, lim))
 			
-	findMax(validGong)
-			
+	print(findMax(restrict(validGong)))
 
+	
+def restrict(rings):
+	newRingList = []
+	
+	for ring in rings:
+		if 10 in ring[0:5]:
+			newRingList.append(ring)
+	return newRingList
+
+	
 def findMax(rings):
 	tempMax = 0
 	
-	
+	for ring in rings:
+		num = localMax(ring)
+		if num > tempMax:
+			tempMax = num
+			
+	return tempMax
 
 
-def funFun(gonRing):
-	localMax = 0
+def localMax(gonRing):
+	# need to keep cyclical order important within each side, but because it is cyclical, we can choose where to start
 	side1, side2, side3, side4, side5 = [0, 6, 7], [1, 7, 8], [2, 8, 9], [3, 9, 5], [4, 5, 6]
 	gonRingColl = [side1, side2, side3, side4, side5]
 
-	for i in range(-1, 4):
-		
-	
-	
 
-def convertToNum(x):
-	None
+	i = startInd(gonRing)					# starting from the lowest external node
+
+	tempNum = ""
+	for j in fivePerm(i):					# go through each side
+		for k in gonRingColl[j]:			# add each number from each side
+			tempNum += str(gonRing[k])
+
+	return int(tempNum)
+
+
+def startInd(ring):
+	return ring.index(min(ring[0:5]))
+
+
+def fivePerm(x):
+	fiveLis = []
+	for h in range(x, x+5):
+		if h > 4:
+			fiveLis.append(h-5)
+		else:
+			fiveLis.append(h)
+	
+	return fiveLis
 
 
 def printGonRing(perm, lim):
 	lis = [None]*10
 	n = 5
+# five EXTERNAL nodes are 0:4
+# five inner noces are at 5:9
 	for p in perm:
 		lis[n] = p
 		n += 1
