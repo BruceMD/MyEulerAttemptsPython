@@ -1,17 +1,8 @@
 def main():
 	
-	gonRing = []
-	
-	side1 = [0, 6, 7]
-	side2 = [1, 7, 8]
-	side3 = [2, 8, 9]
-	side4 = [3, 9, 5]
-	side5 = [4, 5, 6]
-	gonRingColl = [side1, side2, side3, side4, side5]
-	
 	lis = [i for i in range(1, 11)]
 	for lim in range(14, 20):
-		rec(gonRing, lis, lim)
+		rec([], lis, lim)
 	
 	
 	
@@ -20,24 +11,36 @@ def rec(gonRing, lis, lim):
 		print(gonRing)
 		return
 	
-	side1 = [0, 6, 7]
-	side2 = [1, 7, 8]
-	side3 = [2, 8, 9]
-	side4 = [3, 9, 5]
-	side5 = [4, 5, 6]
+	side1, side2, side3, side4, side5 = [0, 6, 7], [1, 7, 8], [2, 8, 9], [3, 9, 5], [4, 5, 6]
 	gonRingColl = [side1, side2, side3, side4, side5]
 	
 	for num in lis:
 		ind = len(gonRing)
+		numSides = []						# get the triangles associated with that index
 		for side in gonRingColl:
 			if ind in side:
-				if (len(side) < 2 and sum(side) + num < lim):
-					
+				numSides.append(side)
+		check = True
+		for side in numSides:
+			if sumSide(gonRing, side) + num == lim 
+		
+
+def lenSide(gonRing, sideLis):
+	count = 0
+	for n in sideLis:
+		if n < len(gonRing):
+			count += 1
+	return count
 
 
-
-def checkLine(line, limit):
-	return sum(line) == limit and len(line) == 3
+def sumSide(gonRing, sideLis):
+	total = 0
+	for n in sideLis:
+		if n < len(gonRing):
+			total += gonRing[n]
 	
+	return total
+
+
 if __name__ == '__main__':
 	main()
