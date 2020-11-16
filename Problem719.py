@@ -1,8 +1,8 @@
-from itertools import combinations
+from time import time
 import math
 
 def main():
-
+    s = time()
     cLis = []
     cDic = {2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[], 12:[]}
     for n in range(2, 13):
@@ -17,15 +17,20 @@ def main():
 
     count = 0
     for i in range(4, 1000000):
-        if sNum(i, cDic[int(math.ceil(math.log10(i ** 2)))]):
-            count += i**2
+        if math.log10(i) % 1 == 0:
+            e = time()
+            print(e - s)
+            if sNum(i, cDic[int(math.ceil(math.log10(i ** 2+1)))]):
+                count += i**2
+        else:
+            if sNum(i, cDic[int(math.ceil(math.log10(i ** 2)))]):
+                count += i**2
     print(count)
 
 
 def sNum(num, comNum):
     square = num**2
     strSquare = str(square)
-#    print(strSquare)
 
     for com in comNum:
         count = 0
@@ -34,12 +39,10 @@ def sNum(num, comNum):
             start += com[i]
             end += com[i+1]
             count += int(strSquare[start:end])
- #           print(int(strSquare[start:end]))
+#           print(int(strSquare[start:end]))
         if count == num:
             return True
     return False
-
-
 
 
 def combos(lim, cLis, lis = []):
