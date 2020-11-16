@@ -2,7 +2,6 @@ from time import time
 import math
 
 def main():
-    s = time()
     cLis = []
     cDic = {2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[], 12:[]}
     for n in range(2, 13):
@@ -16,15 +15,10 @@ def main():
             cDic[sum(item)] = temp
 
     count = 0
-    for i in range(4, 1000000):
-        if math.log10(i) % 1 == 0:
-            e = time()
-            print(e - s)
-            if sNum(i, cDic[int(math.ceil(math.log10(i ** 2+1)))]):
-                count += i**2
-        else:
-            if sNum(i, cDic[int(math.ceil(math.log10(i ** 2)))]):
-                count += i**2
+    for i in range(4, 1000001):
+        wordNum = str(i**2)
+        if sNum(i, cDic[len(wordNum)]):
+            count += i**2
     print(count)
 
 
@@ -55,4 +49,7 @@ def combos(lim, cLis, lis = []):
 
 
 if __name__ == "__main__":
+    s = time()
     main()
+    e = time()
+    print(e-s)
