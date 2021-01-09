@@ -1,62 +1,73 @@
-from itertools import permutations
-from typing import List
+from time import time
 
 
 def main():
-	listP = genPrimeSix()
-	listPAll = listP + genPrimeSeven()
 
-# let's test all the permutations of prime numbers going up to 100 000. Fortunately, we will start using 3 and 70
-	for perm in permutations(listP, 5):
-		check = True
-		for perTwo in permutations(perm, 2):
-			p1, p2 = concatenate(perTwo[0], perTwo[1])
-			if p1 not in listP or p2 not in listPAll:
-				check = False
-				break
-		if check:
-			print(sum(perm))
-			print(perm)
-			break
+    print(isPrime(32))
 
+    pLis = [2]
+    pDic = {2:[]}
 
-def concatenate(a, b):
-	c = int(str(a) + str(b))
-	d = int(str(b) + str(a))
+    for i in range(3, 10000, 2):
+        if isPrime(i):
+            pLis.append(i)
+            pDic[i] = []
 
-	return c, d
+    print(pLis)
+    print(pDic)
 
+    for i in range(len(pLis)):
+        for j in range(i+1, len(pLis)):
+            p, q = pLis[i], pLis[j]
+            if check(p, q):
+                pDic[p].append(q)
+                pDic[q].append(p)
 
-def genPrimeSix():
-	listP = []
-
-	for i in range(3, 100000, 2):
-		if isPrime(i):
-			listP.append(i)
-
-	return listP
+    search([], pDic)
 
 
-def genPrimeSeven():
-	listPSeven = []
+def search(lis, pDic):
+    if not limit(lis):
+        return
+    if len(lis) == 5:
+        print(lis)
+        return
+    if len(lis) == 0:
+        for key in pDic:
+            search(lis+[key], pDic)
+    else:
+        for item in pDic[lis[-1]]:
+            if item > lis[-1]:
+                search(lis+[item], pDic)
 
-	for i in range(100001, 1000000, 2):
-		if isPrime(i):
-			listPSeven.append(i)
 
-	return listPSeven
+def limit(lis):
+    if len(lis) > 1:
+        for i in range(len(lis)-1):
+            for j in range(i+1, len(lis)):
+                if not check(lis[i], lis[j]):
+                    return False
+    return True
+
+
+def check(p, q):
+    if isPrime(int(str(p)+str(q))):
+        if isPrime(int(str(q)+str(p))):
+            return True
+    return False
 
 
 def isPrime(x):
-	count = 0
-	for i in range(3, round(x ** 0.5) + 1, 2):
-		if x % i == 0:
-			count += 1
-			return False
-			break
-	if count == 0:
-		return True
+    if x % 2 == 0:
+        return False
+    for i in range(3, round(x**0.5)+1, 2):
+        if x % i == 0:
+            return False
+    return True
 
 
 if __name__ == "__main__":
-	main()
+    s = time()
+    main()
+    e = time()
+    print(e-s)
