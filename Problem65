@@ -7,33 +7,38 @@ def main():
         e.append(i*2)
         e.append(1)
 
-    for i in range(10):
-        f.write(contStr(e, i, 0) + "\n")
+#    for i in range(10):
+#        f.write(contStr(e, i, 0) + "\n")
 
-def frac():
-    with open("Output.txt") as file:
-        lis = [item.strip("\n") for item in file.readlines()]
+    for i in range(101):
+        print(i+1, " ", frac(i, e))
+
     total = 0
-
-    for item in lis:
-        n = len(item)
-        who = 0
-        num = 0
-        den = 0
-        
-        switchDen = False
-        swicthWho = False
-        switchInv = False
-        
-        while n > 0:
-            if ord(item[n]) == 41:
-                n -= 1
-                continue
-            elif ord(item[n]) >= 48:
-                
+    answer = frac(99, e)
+    print(answer)
+    while(answer > 0):
+        print(total)
+        print(answer%10)
+        total += answer%10
+        answer = answer//10
+    print(total)
 
 
-        total += num
+def frac(i, e):
+    num = 1
+    den = e[i]
+    if i < 1:
+        return num
+
+    for j in range(i-1, -1, -1):
+        w = e[j]
+#        print(w, num, den)
+        num = w*den+num
+        num, den = den, num
+
+    num, den = den, num
+    return num
+
 
 def cont(e, i, n=0):
     if i == n:
