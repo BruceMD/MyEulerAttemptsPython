@@ -1,27 +1,25 @@
 def main():
 
-    f = open("Output.txt", "w")
     e = [2]
     for i in range(1, 35):
         e.append(1)
         e.append(i*2)
         e.append(1)
 
-#    for i in range(10):
-#        f.write(contStr(e, i, 0) + "\n")
-
     for i in range(101):
         print(i+1, " ", frac(i, e))
 
-    total = 0
     answer = frac(99, e)
-    print(answer)
+    print(sumDigits(answer))
+    
+
+def sumDigits(answer):
+    total = 0
     while(answer > 0):
-        print(total)
-        print(answer%10)
         total += answer%10
         answer = answer//10
-    print(total)
+
+    return total
 
 
 def frac(i, e):
