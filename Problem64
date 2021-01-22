@@ -1,0 +1,33 @@
+from math import sqrt
+
+def main():
+
+    total = 0
+    for i in range(2, 10001):
+        if sqrt(i) % 1 != 0:
+            if cont(i):
+                total += 1
+
+    print(total)
+
+
+def cont(i):
+
+    m = 0
+    d = 1
+    aN = int(sqrt(i))
+    a = aN
+
+    period = 0
+
+    while (a != 2 * aN):
+        m = d*a - m             # new value of m
+        d = (i - m*m)/d         # new value of d calculated using new value of m
+        a = int((aN + m)/d)     # new value of a calculated using new values of m and d
+        period += 1
+#    return period
+    return period % 2 != 0      # return True if period is odd
+
+
+if __name__ == "__main__":
+    main()
