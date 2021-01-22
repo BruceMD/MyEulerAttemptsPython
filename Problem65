@@ -1,0 +1,27 @@
+def main():
+
+    f = open("Output.txt", "w")
+    e = [2]
+    for i in range(1, 35):
+        e.append(1)
+        e.append(i*2)
+        e.append(1)
+
+    for i in range(101):
+        f.write(str(i) + " " + contStr(e, i, 0) + "\n\n-+2")
+
+
+def cont(e, i, n=0):
+    if i == n:
+        return e[n]
+    return e[n] + 1/cont(e, i, n+1)
+
+
+def contStr(e, i, n=0):
+    if i == n:
+        return str(e[n])
+    return "(" + str(e[n]) + "+ 1/" + contStr(e, i, n+1) + ")"
+
+
+if __name__ == "__main__":
+    main()
