@@ -1,0 +1,73 @@
+def main():
+
+    newLis = gen()
+
+    for _ in newLis:
+        print(_)
+
+    cycle("", newLis[5], genLis(newLis, newLis[5]))
+
+def cycle(c = "", p6 = [], rLis = []):
+
+    if len(c) == 0:
+        for num in p6:
+            cycle(num, p6, rLis)
+    elif len(c) >= 14:
+        if c[0:2] == c[-2:]:
+            print(c)
+            answer(c)
+        return
+    else:
+        for lis in rLis:
+            for num in lis:
+                if num[0:2] == c[-2:]:
+                    tempLis = genLis(rLis, lis)
+                    cycle(c + num[-2:], p6, tempLis)
+
+
+def answer(x):
+    total = 0
+    for i in range(0, 12, 2):
+        print(int(x[i:i+4]))
+        total += int(x[i:i+4])
+    print("Answer: ", total)
+
+
+def genLis(mainLis, skipLis):
+    l = []
+    for item in mainLis:
+        if item != skipLis:
+            l.append(item)
+    return l
+
+
+def gen():
+
+    p3, p4, p5, p6, p7, p8 = [], [], [], [], [], []
+    for n in range(1, 150):
+        a = n*(n+1)/2
+        if a > 1000 and a < 10000:
+            p3.append(str(int(a)))
+        b = n*n
+        if b > 1000 and b < 10000:
+            p4.append(str(int(b)))
+        c = n*(3*n-1)/2
+        if c > 1000 and c < 10000:
+            p5.append(str(int(c)))
+        d = n*(2*n-1)
+        if d > 1000 and d < 10000:
+            p6.append(str(int(d)))
+        e = n*(5*n-3)/2
+        if e > 1000 and e < 10000:
+            p7.append(str(int(e)))
+        f = n*(3*n-2)
+        if f > 1000 and f < 10000:
+            p8.append(str(int(f)))
+
+    lis = [p3, p4, p5, p6, p7, p8]
+
+    return lis
+
+
+if __name__ == "__main__":
+    main()
