@@ -18,7 +18,7 @@ def dio(d):
         elif x**2 - d*y**2 < 1:
             x += 1
         else:
-            y += 1
+            y += 1 
 
 
 if __name__ == '__main__':
