@@ -1,0 +1,41 @@
+import math
+
+def main():
+
+    powerTriples = set()
+    primes = genPrimeList()
+
+
+    for sq in primes:
+        for cu in primes:
+            if cu**3 > 50000000:
+                break
+            for qu in primes:
+                num = sq**2 + cu**3 + qu**4
+                if num < 50000000:
+                    powerTriples.add(num)
+                else:
+                    break
+
+    print(powerTriples)
+    print(len(powerTriples))
+
+
+def genPrimeList():
+    nums = [2]
+    for i in range(3, round(math.sqrt(50000000)+1), 2):
+        if isPrime(i):
+            nums.append(i)
+    print(nums)
+    return nums
+
+
+def isPrime(x):
+    for i in range(3, round(x**0.5)+1, 2):
+        if x % i == 0:
+            return False
+    return True
+
+
+if __name__ == "__main__":
+    main()
